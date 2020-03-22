@@ -4,8 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script src="jquery.easypiechart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 <style>
     .fa-bell {
         font-size: 25px;
@@ -21,117 +20,107 @@
 
     .fa-user:hover {
         color: #4dabf7;
+        
     }
 </style>
 
-<body style="height: 100%; overflow: hidden;">
+<body>
 
     <!-- Sidebar -->
-    <div class="w3-sidebar w3-blue w3-bar-block" style="width:25%">
-        <h3 class="w3-bar-item" style="font-size: 30px;">Agro Monitor</h3>
-        <a href="main.html" class="w3-bar-item w3-button w3-hover-black w3-animate-left" style="font-size: 25px;"><i
+    <div class="w3-sidebar w3-bar-block" style="width:25%; background-color: #001514;">
+        <h3 class="w3-bar-item" style="font-size: 30px;color:#4dabf7;">Agro Monitor</h3>
+        <a href="main.html" class="w3-bar-item w3-button w3-hover-blue w3-animate-left" style="font-size: 25px;color:#4dabf7;"><i
                 class="fa fa-home w3-padding"></i>Home</a>
-        <a href="control.html" class="w3-bar-item w3-button w3-hover-black w3-animate-left" style="font-size: 25px;"><i
+        <a href="control.html" class="w3-bar-item w3-button w3-hover-blue w3-animate-left" style="font-size: 25px;color:#4dabf7;"><i
                 class="fa fa-gears w3-padding"></i>Control</a>
-        <a href="monitor.html" class="w3-bar-item w3-button w3-hover-black w3-animate-left" style="font-size: 25px;"><i
+        <a href="monitor.html" class="w3-bar-item w3-button w3-hover-blue w3-animate-left" style="font-size: 25px;color:#4dabf7;"><i
                 class="fa fa-tv w3-padding"></i>Monitor</a>
-        <a href="logs.html" class="w3-bar-item w3-button w3-hover-black w3-animate-left" style="font-size: 25px;"><i
-                class="fa fa-bar-chart w3-padding"></i>Logs</a>
+        <a href="logs.html" class="w3-bar-item w3-button w3-hover-blue w3-animate-left" style="font-size: 25px;color:#4dabf7;">
+            <i class="fa fa-bar-chart w3-padding"></i>Logs</a>
     </div>
 
-    <!--Top bar-->
+    <!-- Page Content -->
 
-    <div style="margin-left: 25%;">
-        <div class="w3-container w3-light-grey ">
+    <!--top bar-->
+    <div style="margin-left:25%">
+
+        <div class="w3-container" style="background-color: #5e6472;">
             <a class="fa fa-bell w3-right w3-padding"></a>
             <a class="fa fa-user w3-right w3-padding"></a>
         </div>
+        <!--graph card-->
+        <div class="w3-container w3-padding w3-hover-shadow w3-left" style="width: 50%;">
+            <header class="w3-container" ">
+                <h1 style="color:#001514;">Temparature Change</h1>
+            </header>
 
-        <!--Circular Progress Bar-->
-        <div class="w3-cell-row">
-            <div class="w3-container w3-padding w3-hover-shadow w3-left w3-cell" style="height: 33.33%;">
-                <div class="w3-display-topmiddile">
-                    <div class="w3-container w3-center">
-                        <p style="font-size: 30px;"> Air Temparature</p>
-                    </div>
-                </div>
-                <div class="barChart" data-percent="27" style="margin-left: 40px; margin-right: 40px;"></div>
-                <div class="w3-center">
-                    <p style="font-size: 30px; align-content: center;">27°C</p>
-                </div>
+            <div class="w3-container">
+                <canvas height="100%" width="100%";" id="myChart"></canvas>
             </div>
 
-            <div class="w3-container w3-padding w3-hover-shadow w3-left w3-cell" style="height: 33.33%;">
-                <div class="w3-display-topmiddile">
-                    <div class="w3-container w3-center">
-                        <p style="font-size: 30px;"> Soil Temparature</p>
-                    </div>
-                </div>
-                <div class="barChart" data-percent="40" style="margin-left: 40px; margin-right: 40px;"></div>
-                <div class="w3-center">
-                    <p style="font-size: 30px; align-content: center;">40°C</p>
-                </div>
+        </div>
+        <div class="w3-container w3-padding w3-hover-shadow w3-right" style="width: 50%;">
+            <header class="w3-container" ">
+                <h1 style="color:  #001514;">Humidty Change</h1>
+            </header>
+
+            <div class="w3-container">
+                <canvas height="100%" width="100%";" id="myChart2"></canvas>
             </div>
 
-            <div class="w3-container w3-padding w3-hover-shadow w3-left w3-cell" style="height: 33.33%;">
-                <div class="w3-display-topmiddile">
-                    <div class="w3-container w3-center">
-                        <p style="font-size: 30px;"> Air Humidity</p>
-                    </div>
-                </div>
-                <div class="barChart" data-percent="84" style="margin-left: 40px; margin-right: 40px;"></div>
-                <div class="w3-center">
-                    <p style="font-size: 30px; align-content: center;">85%</p>
-                </div>
-            </div>
         </div>
 
-        <div class="w3-cell-row">
-            <div class="w3-container w3-padding w3-hover-shadow w3-left w3-cell" style="height: 33.33%;">
-                <div class="w3-display-topmiddile">
-                    <div class="w3-container w3-center">
-                        <p style="font-size: 30px;"> pH</p>
-                    </div>
-                </div>
-                <div class="barChart" data-percent="46" style="margin-left: 40px; margin-right: 40px;"></div>
-                <div class="w3-center">
-                    <p style="font-size: 30px; align-content: center;">6.5</p>
-                </div>
-            </div>
-
-            <div class="w3-container w3-padding w3-hover-shadow w3-left w3-cell" style="height: 33.33%;">
-                <div class="w3-display-topmiddile">
-                    <div class="w3-container w3-center">
-                        <p style="font-size: 30px;"> Soil Moisture</p>
-                    </div>
-                </div>
-                <div class="barChart" data-percent="78" style="margin-left: 40px; margin-right: 40px;"></div>
-                <div class="w3-center">
-                    <p style="font-size: 30px; align-content: center;">78%</p>
-                </div>
-            </div>
-
-            <div class="w3-container w3-padding w3-hover-shadow w3-left w3-cell" style="height: 33.33%;">
-                <div class="w3-display-topmiddile">
-                    <div class="w3-container w3-center">
-                        <p style="font-size: 30px;"> Air Speed</p>
-                    </div>
-                </div>
-                <div class="barChart" data-percent="13" style="margin-left: 40px; margin-right: 40px;"></div>
-                <div class="w3-center">
-                    <p style="font-size: 30px; align-content: center;">13 NE</p>
-                </div>
-            </div>
-        </div>
-        <script>
-            $(function () {
-                $('.barChart').easyPieChart({
-                    lineWidth: 10,
-                    barColor: "#2196F3",
-                    size: 190
-                });
-            });
-        </script>
+    </div>
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Temparatute',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: " #4dabf7",
+                    borderColor: " #4dabf7" ,
+                    borderWidth: 1,
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: false
+                        }
+                    }]
+                }
+            }
+        });
+        var ctx2 = document.getElementById('myChart2').getContext('2d');
+        var myChart2 = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Humidity',
+                    data: [60, 80, 75, 68, 87, 68],
+                    backgroundColor: " #4dabf7",
+                    borderColor: " #4dabf7" ,
+                    borderWidth: 1,
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: false
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>
